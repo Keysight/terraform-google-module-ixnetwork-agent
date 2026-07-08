@@ -43,10 +43,17 @@ variable "MachineType" {
 	default = "c2-standard-8"
 	description = "Designation for set of resources available to VM"
 	type = string
+	validation {
+		condition = contains([ "c2-standard-4", "c2-standard-8", "c2-standard-16" ], var.MachineType)
+		error_message = <<EOF
+MachineType must be one of the following types:
+	c2-standard-4, c2-standard-8, c2-standard-16
+		EOF
+	}
 }
 
 variable "MarketplaceImageName" {
-	default = "keysight-virtual-test-appliance-26-0-0-317"
+	default = "keysight-virtual-test-appliance-26-3-0-512"
 	description = "Identifier for image"
 	type = string
 }
@@ -110,7 +117,7 @@ variable "UserProjectTag" {
 }
 
 variable "Version" {
-	default = "26.0.0"
+	default = "26.3.0"
 	description = "Versioning of the application using the deployment"
 	type = string
 }
